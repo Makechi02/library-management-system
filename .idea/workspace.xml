@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ee534293-369f-4131-9d9d-ac6ab1f7df83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Library_Management_System.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/AcademySettingsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/AddLibrarianPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/AdminHome.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/EditLibrarianPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/HomePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/LibraryReportPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/LibrarySettingsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/ViewLibrarianPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/backupPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/ftpSettingsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/messengerSettingsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/mysqlSettingsPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/noticeBoardPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/admin/passwordPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/BookRequestPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/LibrarianHome.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/LibrarianHomePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/LibrarianNoticeBoardPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/LibrarianPasswordPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/ManageBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/ManageBorrowerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/ManageStudentPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/MessengerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/ProfilePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/ReportPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/SearchBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/SoftBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/librarian/UploadBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/BookListPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/BorrowListPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentBookRequestPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentHome.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentMessengerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentNoticeBoardPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentPasswordPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentProfilePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentReportPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentSearchBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentSoftBookPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/StudentUploadPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/makbe/library/student/editProfilePanel.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Foq7J0JI474uuNn2O23yrLKqKi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="makbe.library.student" />
+      <recent name="makbe.library.librarian" />
+      <recent name="makbe.library.admin" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.StudentHome">
+    <configuration name="LibrarianHome" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="makbe.library.librarian.LibrarianHome" />
+      <module name="Library_Management_System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="makbe.library.librarian.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="makbe.library.admin.Main" />
+      <module name="Library_Management_System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="makbe.library.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StudentHome" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="makbe.library.student.StudentHome" />
+      <module name="Library_Management_System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="makbe.library.student.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.StudentHome" />
+        <item itemvalue="Application.makbe.library.librarian.LibrarianHome" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee534293-369f-4131-9d9d-ac6ab1f7df83" name="Changes" comment="" />
+      <created>1665168644482</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665168644482</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
