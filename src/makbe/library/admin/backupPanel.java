@@ -1,6 +1,7 @@
 package makbe.library.admin;
 
-import java.awt.*;
+import javax.swing.*;
 
-public class backupPanel extends Component {
+public class backupPanel extends JPanel {
+
 }

@@ -1,6 +1,7 @@
 package makbe.library.admin;
 
-import java.awt.*;
+import javax.swing.*;
 
-public class ftpSettingsPanel extends Component {
+public class ftpSettingsPanel extends JPanel {
+
 }
