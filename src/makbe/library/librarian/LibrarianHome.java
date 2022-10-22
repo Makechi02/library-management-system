@@ -15,12 +15,15 @@ public class LibrarianHome extends JFrame {
     JButton signOut = new JButton("Sign Out");
 
     JPanel bottomBar = new JPanel();
+    JLabel developer = new JLabel(" Developed by Makechi™");
+    JLabel version = new JLabel("Library Management System | Version 1.0");
+    JRadioButton connected = new JRadioButton("Database Connected _ ");
 
     UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 
-    Color accent = Color.GREEN;
+    Color accent = Color.BLACK;
 
-    LibrarianHome() {
+    public LibrarianHome() {
         super("Librarian Panel");
         setSize(width, height);
         setLocationRelativeTo(null);
@@ -70,10 +73,27 @@ public class LibrarianHome extends JFrame {
 
         bottomBar.setBackground(accent);
         bottomBar.setBounds(0, 590, width, 40);
+        bottomBar.setLayout(new GridLayout(1, 3));
+
+        developer.setForeground(Color.WHITE);
+        developer.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+        bottomBar.add(developer);
+
+        version.setForeground(Color.WHITE);
+        version.setHorizontalAlignment(JLabel.CENTER);
+        version.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+        bottomBar.add(version);
+
+        connected.setBackground(accent);
+        connected.setForeground(Color.WHITE);
+        connected.setHorizontalAlignment(JRadioButton.RIGHT);
+        connected.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+        bottomBar.add(connected);
+
         add(bottomBar);
 
         try {
-            UIManager.setLookAndFeel(looks[3].getClassName());
+            UIManager.setLookAndFeel(looks[1].getClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
                  UnsupportedLookAndFeelException e) {

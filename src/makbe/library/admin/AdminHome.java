@@ -20,7 +20,7 @@ public class AdminHome extends JFrame {
 
     UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 
-    AdminHome() {
+    public AdminHome() {
         super("Administrator Panel");
         setSize(width, height);
         setLocationRelativeTo(null);

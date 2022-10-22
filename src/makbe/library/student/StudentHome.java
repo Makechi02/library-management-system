@@ -21,7 +21,7 @@ public class StudentHome extends JFrame {
 
     Color accent = Color.PINK;
 
-    StudentHome() {
+    public StudentHome() {
         super("Student Panel");
         setSize(width, height);
         setLocationRelativeTo(null);

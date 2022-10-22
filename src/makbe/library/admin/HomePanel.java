@@ -86,7 +86,8 @@ public class HomePanel extends JPanel {
         constraints.gridy = 1;
         datePanel.add(dateLabel, constraints);
 
-        dayLabel = new JLabel(days[date.getDay() - 1].toUpperCase());
+        //dayLabel = new JLabel(days[date.getDay() - 1].toUpperCase());
+        dayLabel = new JLabel("Monday");
         dayLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
         dayLabel.setForeground(Color.WHITE);
         dayLabel.setHorizontalAlignment(JLabel.CENTER);
