@@ -1,8 +1,11 @@
 package makbe.library.main;
 
+import makbe.library.connections.Connections;
 import makbe.library.student.*;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class StudentLogin extends JDialog {
@@ -49,8 +52,11 @@ public class StudentLogin extends JDialog {
         loginButton.setFont(font);
         loginButton.addActionListener(e -> {
             if (loginValidate()) {
+                erasePassword();
                 setVisible(false);
-                new StudentHome();
+                new StudentHome(this, nameField.getText());
+            } else {
+                erasePassword();
             }
         });
         buttonsPanel.add(loginButton);
@@ -66,7 +72,21 @@ public class StudentLogin extends JDialog {
             JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
-            return true;
+            Connections conn = new Connections();
+            String query =
+                    "select * from login where username = '" + nameField.getText() + "' and password = '" + passwordField.getText() + "' ";
+            ResultSet rs;
+            try {
+                rs = conn.statement.executeQuery(query);
+                return rs.next();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
+    private void erasePassword() {
+        passwordField.setText("");
+    }
+
 }

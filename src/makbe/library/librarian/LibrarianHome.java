@@ -11,19 +11,20 @@ public class LibrarianHome extends JFrame {
 
     JPanel topBar = new JPanel();
     JLabel universityLabel = new JLabel("MAKBE UNIVERSITY");
-    JButton home = new JButton("Home");
     JButton signOut = new JButton("Sign Out");
 
     JPanel bottomBar = new JPanel();
     JLabel developer = new JLabel(" Developed by Makechi™");
     JLabel version = new JLabel("Library Management System | Version 1.0");
-    JRadioButton connected = new JRadioButton("Database Connected _ ");
+    JRadioButton connected = new JRadioButton("Database Connected.");
 
     UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 
     Color accent = Color.BLACK;
+    boolean connect = false;
+    String user;
 
-    public LibrarianHome() {
+    public LibrarianHome(JDialog dialog, String user) {
         super("Librarian Panel");
         setSize(width, height);
         setLocationRelativeTo(null);
@@ -43,12 +44,12 @@ public class LibrarianHome extends JFrame {
         universityLabel.setForeground(Color.WHITE);
         topBar.add(universityLabel);
 
-        home.setBounds(900, 10, 100, 30);
-        home.setFont(new Font("Iosevka Term", Font.PLAIN, 16));
-        topBar.add(home);
-
         signOut.setBounds(1020, 10, 100, 30);
         signOut.setFont(new Font("Iosevka Term", Font.PLAIN, 16));
+        signOut.addActionListener(e -> {
+            setVisible(false);
+            dialog.setVisible(true);
+        });
         topBar.add(signOut);
 
         add(topBar);
@@ -68,11 +69,11 @@ public class LibrarianHome extends JFrame {
         optionsPane.add("Messenger", new MessengerPanel());
         optionsPane.add("Notice Board", new LibrarianNoticeBoardPanel());
         optionsPane.add("Edit Profile", new ProfilePanel());
-        optionsPane.add("Change Password", new LibrarianPasswordPanel());
+        optionsPane.add("Change Password", new LibrarianPasswordPanel(user));
         add(optionsPane);
 
         bottomBar.setBackground(accent);
-        bottomBar.setBounds(0, 590, width, 40);
+        bottomBar.setBounds(0, 600, width, 40);
         bottomBar.setLayout(new GridLayout(1, 3));
 
         developer.setForeground(Color.WHITE);
@@ -88,12 +89,13 @@ public class LibrarianHome extends JFrame {
         connected.setForeground(Color.WHITE);
         connected.setHorizontalAlignment(JRadioButton.RIGHT);
         connected.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+        connected.setSelected(connect);
         bottomBar.add(connected);
 
         add(bottomBar);
 
         try {
-            UIManager.setLookAndFeel(looks[1].getClassName());
+            UIManager.setLookAndFeel(looks[3].getClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
                  UnsupportedLookAndFeelException e) {
@@ -101,11 +103,11 @@ public class LibrarianHome extends JFrame {
         }
 
         setVisible(true);
-        System.out.println(width + ", " + height);
+
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(LibrarianHome::new);
+        new LibrarianHome(new JDialog(), "user");
     }
 
 }

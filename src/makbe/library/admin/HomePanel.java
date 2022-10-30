@@ -9,7 +9,7 @@ public class HomePanel extends JPanel {
 
     JLabel logIn = new JLabel("Logged in as: Super Admin");
     JLabel welcomeText = new JLabel("Welcome Back!");
-    JLabel welcomeText2 = new JLabel("Choose your option from left panel");
+    JLabel welcomeText2 = new JLabel("Choose your option from the left panel");
     JPanel datePanel = new JPanel();
     JLabel monthLabel, dateLabel, dayLabel;
     JPanel timePanel = new JPanel();
@@ -46,32 +46,13 @@ public class HomePanel extends JPanel {
         datePanel.setFont(new Font("Iosevka Term", Font.BOLD, 16));
         add(datePanel);
 
-        String[] days = {
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-        };
+        String[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
         String[] months = {
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
+                "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
         };
 
-        monthLabel = new JLabel(months[date.getMonth() - 1].toUpperCase());
+        monthLabel = new JLabel(months[date.getMonth()].toUpperCase());
         monthLabel.setFont(new Font("Iosevka Term", Font.BOLD, 20));
         monthLabel.setForeground(Color.ORANGE);
         monthLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -86,8 +67,7 @@ public class HomePanel extends JPanel {
         constraints.gridy = 1;
         datePanel.add(dateLabel, constraints);
 
-        //dayLabel = new JLabel(days[date.getDay() - 1].toUpperCase());
-        dayLabel = new JLabel("Monday");
+        dayLabel = new JLabel(days[date.getDay()].toUpperCase());
         dayLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
         dayLabel.setForeground(Color.WHITE);
         dayLabel.setHorizontalAlignment(JLabel.CENTER);
