@@ -9,6 +9,7 @@ public class Fonts {
 	public static Font displayFont = new Font(defaultFont.getFontName(), Font.PLAIN, 20);
 	public static Font headingFont = new Font(defaultFont.getFontName(), Font.BOLD, 24);
 	public static Font subHeadingFont = new Font(defaultFont.getFontName(), Font.ITALIC, 15);
+	public static Font buttonFont = new Font(defaultFont.getFontName(), Font.PLAIN, 15);
 
 	private static Font getAvailableFont() {
 		for (String fontName : Fonts.fontNames) {

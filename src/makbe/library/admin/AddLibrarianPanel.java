@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 
 public class AddLibrarianPanel extends JPanel implements ActionListener {
 
-    JLabel label;
+import static makbe.library.constants.Fonts.defaultFont;
+import static makbe.library.constants.Fonts.displayFont;
 
     JTextField nameField = new JTextField();
     JTextField staffIdField = new JTextField();
@@ -25,87 +26,73 @@ public class AddLibrarianPanel extends JPanel implements ActionListener {
         //setBackground(Color.GRAY);
         setLayout(null);
 
-        label = new JLabel("NAME:");
-        label.setBounds(50, 50, 150, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		JLabel label = new JLabel("NAME:");
+		label.setBounds(50, 50, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
 
-        nameField.setBounds(230, 50, 300, 40);
-        nameField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(nameField);
+		nameField.setBounds(260, 50, 300, 40);
+		nameField.setFont(displayFont);
+		add(nameField);
 
-        label = new JLabel("Staff ID:");
-        label.setBounds(50, 110, 150, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		label = new JLabel("STAFF ID:");
+		label.setBounds(50, 110, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
 
-        staffIdField.setBounds(230, 110, 300, 40);
-        staffIdField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(staffIdField);
+		staffIdField.setBounds(260, 110, 300, 40);
+		staffIdField.setFont(displayFont);
+		add(staffIdField);
 
-        label = new JLabel("USERNAME:");
-        label.setBounds(50, 170, 150, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		label = new JLabel("EMAIL:");
+		label.setBounds(50, 170, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
 
-        usernameField.setBounds(230, 170, 300, 40);
-        usernameField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(usernameField);
+		emailField.setBounds(260, 170, 300, 40);
+		emailField.setFont(displayFont);
+		add(emailField);
 
-        label = new JLabel("EMAIL:");
-        label.setBounds(50, 230, 150, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		label = new JLabel("PASSWORD:");
+		label.setBounds(50, 230, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
 
-        emailField.setBounds(230, 230, 300, 40);
-        emailField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(emailField);
+		passwordField.setBounds(260, 230, 300, 40);
+		passwordField.setFont(displayFont);
+		add(passwordField);
 
-        label = new JLabel("PASSWORD:");
-        label.setBounds(50, 290, 150, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		label = new JLabel("CONFIRM PASSWORD:");
+		label.setBounds(50, 290, 200, 40);
+		label.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 18));
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
 
-        passwordField.setBounds(230, 290, 300, 40);
-        passwordField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(passwordField);
+		confirmField.setBounds(260, 290, 300, 40);
+		confirmField.setFont(displayFont);
+		add(confirmField);
 
-        label = new JLabel("CONFIRM PASSWORD:");
-        label.setBounds(50, 350, 200, 40);
-        label.setFont(new Font("Iosevka Term", Font.PLAIN, 18));
-        label.setVerticalAlignment(JLabel.CENTER);
-        add(label);
+		detailsArea.setBounds(620, 50, 350, 290);
+		detailsArea.setFont(displayFont);
+		detailsArea.setEditable(false);
+		detailsArea.setFocusable(false);
+		add(detailsArea);
 
-        confirmField.setBounds(230, 350, 300, 40);
-        confirmField.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        add(confirmField);
+		JButton previewButton = new JButton("Preview");
+		previewButton.setBounds(690, 410, 100, 40);
+		previewButton.setFont(displayFont);
+		previewButton.addActionListener(e -> handlePreview());
+		add(previewButton);
 
-        noMatch.setForeground(Color.RED);
-        noMatch.setHorizontalAlignment(JLabel.CENTER);
-        noMatch.setFont(new Font("Iosevka Term", Font.PLAIN, 18));
-        add(noMatch);
-
-        detailsArea.setBounds(620, 50, 350, 340);
-        detailsArea.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        detailsArea.setEditable(false);
-        detailsArea.setFocusable(false);
-        add(detailsArea);
-
-        previewButton.setBounds(690, 410, 100, 40);
-        previewButton.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        previewButton.addActionListener(this);
-        add(previewButton);
-
-        acceptButton.setBounds(800, 410, 100, 40);
-        acceptButton.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
-        acceptButton.setEnabled(false);
-        acceptButton.addActionListener(this);
-        add(acceptButton);
+		JButton acceptButton = new JButton("Accept");
+		acceptButton.setBounds(800, 410, 100, 40);
+		acceptButton.setFont(displayFont);
+		acceptButton.addActionListener(e -> handleSaveLibrarian());
+		add(acceptButton);
 
         setVisible(true);
     }

@@ -5,8 +5,9 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class HomePanel extends JPanel {
+import static makbe.library.constants.Fonts.defaultFont;
 
+public class HomePanel extends JPanel {
     JLabel logIn = new JLabel("Logged in as: Super Admin");
     JLabel welcomeText = new JLabel("Welcome Back!");
     JLabel welcomeText2 = new JLabel("Choose your option from the left panel");
@@ -18,32 +19,31 @@ public class HomePanel extends JPanel {
     Date date = new Date();
 
     HomePanel() {
-        //setBackground(Color.GRAY);
         setLayout(null);
 
         logIn.setBounds(690, 10, 300, 40);
         logIn.setHorizontalAlignment(JLabel.CENTER);
         logIn.setVerticalAlignment(JLabel.CENTER);
-        logIn.setFont(new Font("Iosevka Term", Font.PLAIN, 15));
+        logIn.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 15));
         add(logIn);
 
         welcomeText.setBounds(100, 80, 800, 50);
         welcomeText.setHorizontalAlignment(JLabel.CENTER);
         welcomeText.setVerticalAlignment(JLabel.CENTER);
-        welcomeText.setFont(new Font("Iosevka Term", Font.BOLD, 23));
+        welcomeText.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 23));
         add(welcomeText);
 
         welcomeText2.setBounds(100, 130, 800, 50);
         welcomeText2.setHorizontalAlignment(JLabel.CENTER);
         welcomeText2.setVerticalAlignment(JLabel.CENTER);
-        welcomeText2.setFont(new Font("Iosevka Term", Font.BOLD, 22));
+        welcomeText2.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 22));
         add(welcomeText2);
 
         datePanel.setBounds(750, 240, 180, 180);
         datePanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         datePanel.setBackground(Color.BLACK);
-        datePanel.setFont(new Font("Iosevka Term", Font.BOLD, 16));
+        datePanel.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 16));
         add(datePanel);
 
         String[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
@@ -55,13 +55,14 @@ public class HomePanel extends JPanel {
         monthLabel = new JLabel(months[date.getMonth()].toUpperCase());
         monthLabel.setFont(new Font("Iosevka Term", Font.BOLD, 20));
         monthLabel.setForeground(Color.ORANGE);
+        monthLabel.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 20));
         monthLabel.setHorizontalAlignment(JLabel.CENTER);
         monthLabel.setVerticalAlignment(JLabel.CENTER);
         datePanel.add(monthLabel, constraints);
 
         dateLabel = new JLabel(String.valueOf(date.getDate()));
         dateLabel.setForeground(Color.ORANGE);
-        dateLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
+        dateLabel.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 20));
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
         dateLabel.setVerticalAlignment(JLabel.CENTER);
         constraints.gridy = 1;
@@ -70,6 +71,7 @@ public class HomePanel extends JPanel {
         dayLabel = new JLabel(days[date.getDay()].toUpperCase());
         dayLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
         dayLabel.setForeground(Color.WHITE);
+        dayLabel.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 17));
         dayLabel.setHorizontalAlignment(JLabel.CENTER);
         dayLabel.setVerticalAlignment(JLabel.CENTER);
         constraints.gridy = 2;
@@ -79,16 +81,19 @@ public class HomePanel extends JPanel {
         constraints.gridy = 3;
         datePanel.add(timePanel, constraints);
 
-        hourLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
+        Font timeFont = new Font(defaultFont.getFontName(), Font.PLAIN, 17);
+
+        hourLabel.setFont(timeFont);
         hourLabel.setForeground(Color.WHITE);
         constraints.gridy = 4;
         timePanel.add(hourLabel);
 
         JLabel colon = new JLabel(" : ");
+        colon.setFont(timeFont);
         colon.setForeground(Color.WHITE);
         timePanel.add(colon);
 
-        minutesLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
+        minutesLabel.setFont(timeFont);
         minutesLabel.setForeground(Color.WHITE);
         constraints.gridy = 5;
         timePanel.add(minutesLabel);
