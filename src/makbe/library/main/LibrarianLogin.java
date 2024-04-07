@@ -2,90 +2,86 @@ package makbe.library.main;
 
 import makbe.library.connections.Connections;
 import makbe.library.librarian.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.sql.*;
-import java.util.Objects;
+
+import static makbe.library.constants.Fonts.defaultFont;
 
 public class LibrarianLogin extends JDialog {
-    private final JTextField nameField = new JTextField();
-    private final JPasswordField passwordField = new JPasswordField();
+	private final JTextField idField = new JTextField();
+	private final JPasswordField passwordField = new JPasswordField();
 
-    LibrarianLogin(Login owner) {
-        super(owner, "Librarian Login", true);
-        setResizable(false);
-        setSize(owner.width, owner.height);
-        setLocationRelativeTo(owner);
-        setLayout(null);
+	LibrarianLogin(Login owner) {
+		super(owner, "Librarian Login", true);
+		setResizable(false);
+		setSize(owner.width, owner.height);
+		setLocationRelativeTo(owner);
+		setLayout(null);
 
-        JPanel buttonsPanel = new JPanel();
-        Font font = new Font("Iosevka Term", Font.PLAIN, 20);
+		JPanel buttonsPanel = new JPanel();
+		Font font = new Font(defaultFont.getFontName(), Font.PLAIN, 16);
 
-        JLabel label = new JLabel("NAME:");
-        label.setBounds(100, 50, 100, 40);
-        label.setFont(font);
-        add(label);
+		JLabel label = new JLabel("ID NO.:");
+		label.setBounds(100, 50, 100, 40);
+		label.setFont(font);
+		add(label);
 
-        nameField.setBounds(250, 50, 300, 40);
-        nameField.setFont(font);
-        add(nameField);
+		idField.setBounds(250, 50, 300, 40);
+		idField.setFont(font);
+		add(idField);
 
-        label = new JLabel("PASSWORD:");
-        label.setBounds(100, 120, 100, 40);
-        label.setFont(font);
-        add(label);
+		label = new JLabel("PASSWORD:");
+		label.setBounds(100, 120, 100, 40);
+		label.setFont(font);
+		add(label);
 
-        passwordField.setBounds(250, 120, 300, 40);
-        passwordField.setFont(font);
-        add(passwordField);
+		passwordField.setBounds(250, 120, 300, 40);
+		passwordField.setFont(font);
+		add(passwordField);
 
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setFont(font);
-        cancelButton.addActionListener(e -> {
-            setVisible(false);
-            owner.setVisible(true);
-        });
-        buttonsPanel.add(cancelButton);
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setFont(font);
+		cancelButton.addActionListener(e -> {
+			setVisible(false);
+			owner.setVisible(true);
+		});
+		buttonsPanel.add(cancelButton);
 
-        JButton loginButton = new JButton("Login");
-        loginButton.setFont(font);
-        loginButton.addActionListener(e -> {
-            if (loginValidate()) {
-                erasePassword();
-                setVisible(false);
-                new LibrarianHome(this, nameField.getText());
-            } else {
-                erasePassword();
-            }
-        });
-        buttonsPanel.add(loginButton);
+		JButton loginButton = new JButton("Login");
+		loginButton.setFont(font);
+		loginButton.addActionListener(e -> {
+			if (loginValidate()) {
+				erasePassword();
+				setVisible(false);
+				new LibrarianHome(this, idField.getText());
+			} else {
+				erasePassword();
+			}
+		});
+		buttonsPanel.add(loginButton);
 
-        buttonsPanel.setBounds(0, 200, owner.width, 50);
-        add(buttonsPanel);
+		buttonsPanel.setBounds(0, 200, owner.width, 50);
+		add(buttonsPanel);
 
-        setVisible(true);
-    }
+		setVisible(true);
+	}
 
-    private boolean loginValidate() {
-        if (Objects.equals(nameField.getText(), "") || Objects.equals(passwordField.getText(), "")) {
-            JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else {
-            Connections conn = new Connections();
-            String query =
-                    "select * from login where username = '" + nameField.getText() + "' and password = '" + passwordField.getText() + "' ";
-            ResultSet rs;
-            try {
-                rs = conn.statement.executeQuery(query);
-                return rs.next();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+	private boolean loginValidate() {
+		String id = idField.getText();
+		String password = String.valueOf(passwordField.getPassword());
 
-    private void erasePassword() {
-        passwordField.setText("");
-    }
+		if (id.isBlank() || password.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else {
+			Connections connections = Connections.getInstance();
+			return connections.authenticateLibrarian(id, password);
+		}
+	}
+
+	private void erasePassword() {
+		passwordField.setText("");
+	}
 
 }
