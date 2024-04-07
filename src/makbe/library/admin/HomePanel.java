@@ -3,6 +3,7 @@ package makbe.library.admin;
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static makbe.library.constants.Fonts.defaultFont;
@@ -16,7 +17,7 @@ public class HomePanel extends JPanel {
     JPanel timePanel = new JPanel();
     JLabel hourLabel = new JLabel();
     JLabel minutesLabel = new JLabel();
-    Date date = new Date();
+    Calendar calendar = Calendar.getInstance();
 
     HomePanel() {
         setLayout(null);
@@ -52,15 +53,14 @@ public class HomePanel extends JPanel {
                 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
         };
 
-        monthLabel = new JLabel(months[date.getMonth()].toUpperCase());
-        monthLabel.setFont(new Font("Iosevka Term", Font.BOLD, 20));
+        monthLabel = new JLabel(months[calendar.get(Calendar.MONTH)].toUpperCase());
         monthLabel.setForeground(Color.ORANGE);
         monthLabel.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 20));
         monthLabel.setHorizontalAlignment(JLabel.CENTER);
         monthLabel.setVerticalAlignment(JLabel.CENTER);
         datePanel.add(monthLabel, constraints);
 
-        dateLabel = new JLabel(String.valueOf(date.getDate()));
+        dateLabel = new JLabel(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         dateLabel.setForeground(Color.ORANGE);
         dateLabel.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 20));
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -68,8 +68,7 @@ public class HomePanel extends JPanel {
         constraints.gridy = 1;
         datePanel.add(dateLabel, constraints);
 
-        dayLabel = new JLabel(days[date.getDay()].toUpperCase());
-        dayLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 17));
+        dayLabel = new JLabel(days[calendar.get(Calendar.DAY_OF_WEEK) - 1].toUpperCase());
         dayLabel.setForeground(Color.WHITE);
         dayLabel.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 17));
         dayLabel.setHorizontalAlignment(JLabel.CENTER);

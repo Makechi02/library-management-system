@@ -1,20 +1,16 @@
 package makbe.library.admin;
 
+import makbe.library.constants.WindowActions;
+
 import javax.swing.*;
 import java.awt.*;
 
 import static makbe.library.constants.Fonts.*;
 
 public class AdminHome extends JFrame {
-
     Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screen.width - 100;
     int height = screen.height - 100;
-
-    private final JRadioButton connected = new JRadioButton("Database Connected.");
-    private boolean connect = false;
-
-    UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 
     public AdminHome(JDialog dialog, String name) {
         super("Administrator Panel");
@@ -55,17 +51,16 @@ public class AdminHome extends JFrame {
         optionsPane.setFont(displayFont);
         optionsPane.add("Home", new HomePanel());
         optionsPane.add("Add Librarian", new AddLibrarianPanel());
-        optionsPane.add("Edit Librarian", new EditLibrarianPanel());
         optionsPane.add("View Librarian", new ViewLibrarianPanel());
-        optionsPane.add("Library Report", new LibraryReportPanel());
-        optionsPane.add("Academy Settings", new AcademySettingsPanel());
-        optionsPane.add("Library Settings", new LibrarySettingsPanel());
-        optionsPane.add("MySQL Settings", new mysqlSettingsPanel());
-        optionsPane.add("FTP Settings", new ftpSettingsPanel());
-        optionsPane.add("Messenger Settings", new messengerSettingsPanel());
-        optionsPane.add("Generate Backup", new backupPanel());
-        optionsPane.add("Notice Board", new noticeBoardPanel());
-        optionsPane.add("Change Password", new passwordPanel(name));
+//        optionsPane.add("Library Report", new LibraryReportPanel());
+//        optionsPane.add("Academy Settings", new AcademySettingsPanel());
+//        optionsPane.add("Library Settings", new LibrarySettingsPanel());
+//        optionsPane.add("MySQL Settings", new mysqlSettingsPanel());
+//        optionsPane.add("FTP Settings", new ftpSettingsPanel());
+//        optionsPane.add("Messenger Settings", new messengerSettingsPanel());
+//        optionsPane.add("Generate Backup", new backupPanel());
+//        optionsPane.add("Notice Board", new noticeBoardPanel());
+        optionsPane.add("Change Password", new PasswordPanel(name));
         add(optionsPane);
 
         bottomBar.setBackground(Color.BLACK);
@@ -83,7 +78,8 @@ public class AdminHome extends JFrame {
         version.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
         bottomBar.add(version);
 
-        connected.setBackground(Color.BLACK);
+		JRadioButton connected = new JRadioButton("Database Connected. ");
+		connected.setBackground(Color.BLACK);
         connected.setForeground(Color.WHITE);
         connected.setHorizontalAlignment(JRadioButton.RIGHT);
         connected.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
@@ -93,14 +89,7 @@ public class AdminHome extends JFrame {
 
         add(bottomBar);
 
-        try {
-            UIManager.setLookAndFeel(looks[3].getClassName());
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
-        }
-
+        WindowActions.changeLookAndFeel(this);
         setVisible(true);
     }
 

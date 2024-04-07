@@ -1,27 +1,21 @@
 package makbe.library.admin;
 
-import makbe.library.connections.ConnectionsII;
+import makbe.library.connections.Connections;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Objects;
 
 import static makbe.library.constants.Fonts.displayFont;
 
+public class PasswordPanel extends JPanel {
 	private final JPasswordField oldPasswordField = new JPasswordField();
 	private final JPasswordField newPasswordField = new JPasswordField();
 	private final JPasswordField confirmPasswordField = new JPasswordField();
 
 	String user;
-	ConnectionsII connectionsII = new ConnectionsII();
 
-	passwordPanel(String username) {
+	PasswordPanel(String username) {
 		setLayout(null);
 		this.user = username;
-
-		Font font = new Font("Iosevka Term", Font.PLAIN, 20);
 
 		JLabel label = new JLabel("ENTER OLD PASSWORD:");
 		label.setBounds(150, 100, 500, 40);
@@ -58,21 +52,31 @@ import static makbe.library.constants.Fonts.displayFont;
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (!Objects.equals(newPasswordField.getText(), confirmPasswordField.getText()))
-			JOptionPane.showMessageDialog(this, "Passwords Don't Match!", null, JOptionPane.ERROR_MESSAGE);
-		else {
-			if (connectionsII.updatePassword(user, oldPasswordField.getText(), confirmPasswordField.getText())) {
-				JOptionPane.showMessageDialog(this, "Password Updated Successfully", null, JOptionPane.INFORMATION_MESSAGE);
-				erasePassword();
+	private void handleUpdate() {
+		String oldPassword = String.valueOf(oldPasswordField.getPassword());
+		String newPassword = String.valueOf(newPasswordField.getPassword());
+		String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
+
+		Connections connections = Connections.getInstance();
+
+		if (!newPassword.equals(confirmPassword)) {
+			JOptionPane.showMessageDialog(this, "Passwords don't match", null, JOptionPane.WARNING_MESSAGE);
+		} else {
+			if (!connections.authenticateAdmin(user, oldPassword)) {
+				JOptionPane.showMessageDialog(this, "Incorrect password", null, JOptionPane.WARNING_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(this, "Incorrect Credentials!", null, JOptionPane.INFORMATION_MESSAGE);
+				int result = connections.updateAdminPassword(user, newPassword);
+				if (result >= 1) {
+					JOptionPane.showMessageDialog(this, "Password Updated Successfully", null, JOptionPane.INFORMATION_MESSAGE);
+					erasePasswordFields();
+				} else {
+					JOptionPane.showMessageDialog(this, "An error occurred!", null, JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
 
-	private void erasePassword() {
+	private void erasePasswordFields() {
 		oldPasswordField.setText("");
 		newPasswordField.setText("");
 		confirmPasswordField.setText("");

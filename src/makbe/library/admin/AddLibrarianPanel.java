@@ -1,30 +1,24 @@
 package makbe.library.admin;
 
+import makbe.library.connections.Connections;
+import makbe.library.model.Librarian;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class AddLibrarianPanel extends JPanel implements ActionListener {
 
 import static makbe.library.constants.Fonts.defaultFont;
 import static makbe.library.constants.Fonts.displayFont;
 
-    JTextField nameField = new JTextField();
-    JTextField staffIdField = new JTextField();
-    JTextField usernameField = new JTextField();
-    JTextField emailField = new JTextField();
-    JPasswordField passwordField = new JPasswordField();
-    JPasswordField confirmField = new JPasswordField();
-    JLabel noMatch = new JLabel("* Passwords don't match! *");
+public class AddLibrarianPanel extends JPanel {
+	private final JTextField nameField = new JTextField();
+	private final JTextField staffIdField = new JTextField();
+	private final JTextField emailField = new JTextField();
+	private final JPasswordField passwordField = new JPasswordField();
+	private final JPasswordField confirmField = new JPasswordField();
+	private final JTextArea detailsArea = new JTextArea("Details:");
 
-    JTextArea detailsArea = new JTextArea("Details:");
-    JButton previewButton = new JButton("Preview");
-    JButton acceptButton = new JButton("Accept");
-
-    AddLibrarianPanel() {
-        //setBackground(Color.GRAY);
-        setLayout(null);
+	AddLibrarianPanel() {
+		setLayout(null);
 
 		JLabel label = new JLabel("NAME:");
 		label.setBounds(50, 50, 150, 40);
@@ -94,41 +88,74 @@ import static makbe.library.constants.Fonts.displayFont;
 		acceptButton.addActionListener(e -> handleSaveLibrarian());
 		add(acceptButton);
 
-        setVisible(true);
-    }
+		setVisible(true);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == previewButton) {
-            if (validatePassword()) {
-                detailsArea.append(
-                        "\n\nName: " + nameField.getText() +
-                        "\nStaff ID: " + staffIdField.getText() +
-                        "\nUsername: " + usernameField.getText() +
-                        "\nEmail: " + emailField.getText()
-                );
-                acceptButton.setEnabled(true);
-            } else {
-                noMatch.setBounds(50, 400, 420, 40);
-            }
+	private void handlePreview() {
+		if (!validateFields()) {
+			JOptionPane.showMessageDialog(this, "Please fill out all fields!", null, JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 
-        } else if (e.getSource() == acceptButton) {
-            nameField.setText("");
-            staffIdField.setText("");
-            usernameField.setText("");
-            emailField.setText("");
-            passwordField.setText("");
-            confirmField.setText("");
-            acceptButton.setEnabled(false);
-        }
-    }
+		if (validatePassword()) {
+			detailsArea.setText("");
+			detailsArea.setText(
+					"Details:" + "\n\nName: " + nameField.getText() +
+							"\nStaff ID: " + staffIdField.getText() +
+							"\nEmail: " + emailField.getText()
+			);
+		} else {
+			JOptionPane.showMessageDialog(this, "Passwords don't match!", null, JOptionPane.WARNING_MESSAGE);
+		}
+	}
 
-    public boolean validatePassword() {
-        String password = passwordField.getText();
-        String confirm = confirmField.getText();
+	private void handleSaveLibrarian() {
+		String name = nameField.getText();
+		String id = staffIdField.getText();
+		String email = emailField.getText();
+		String password = String.valueOf(passwordField.getPassword());
 
-        return password.equals(confirm);
+		if (validateFields()) {
+			if (validatePassword()) {
+				Connections connections = Connections.getInstance();
+				int rows = connections.saveLibrarian(new Librarian(id, name, email, password));
+				if (rows >= 1) {
+					JOptionPane.showMessageDialog(this, "Librarian added successfully", null, JOptionPane.INFORMATION_MESSAGE);
+					clearFields();
+				} else {
+					JOptionPane.showMessageDialog(this, "An error occurred", null, JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Passwords don't match!", null, JOptionPane.WARNING_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Please fill out all fields!", null, JOptionPane.WARNING_MESSAGE);
+		}
+	}
 
-    }
+	private boolean validateFields() {
+		String name = nameField.getText();
+		String id = staffIdField.getText();
+		String email = emailField.getText();
+		String password = String.valueOf(passwordField.getPassword());
+		String confirm = String.valueOf(confirmField.getPassword());
+
+		return !name.isBlank() && !id.isBlank() && !email.isBlank() && !password.isEmpty() && !confirm.isEmpty();
+	}
+
+	private void clearFields() {
+		nameField.setText("");
+		staffIdField.setText("");
+		emailField.setText("");
+		passwordField.setText("");
+		confirmField.setText("");
+		detailsArea.setText("");
+	}
+
+	public boolean validatePassword() {
+		String password = String.valueOf(passwordField.getPassword());
+		String confirm = String.valueOf(confirmField.getPassword());
+		return password.equals(confirm);
+	}
 
 }
