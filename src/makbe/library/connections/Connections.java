@@ -1,52 +1,79 @@
 package makbe.library.connections;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
 public class Connections {
+	private static final String PROPERTIES_FILE = "database.properties";
 
-    public Connection connection;
-    public Statement statement;
+	private static Connections instance;
 
-    public Connections() {
+	private Connections() {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Library?useSSL=false" + "&serverTimezone=UTC","vee","vi");
-            statement = connection.createStatement();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+	}
 
-    public boolean confirmPassword(String user, String password) {
-        String query =
-                "SELECT * FROM login " +
-                        "WHERE username = '" + user + "' AND password = '" + password + "' ";
-        try {
-            ResultSet resultSet = statement.executeQuery(query);
-            return resultSet.next();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	public static synchronized Connections getInstance() {
+		if (instance == null) {
+			instance = new Connections();
+		}
+		return instance;
 
-    public boolean updatePassword(String user, String oldPassword, String newPassword) {
-        if (confirmPassword(user, oldPassword)) {
-            int result;
-            String query2 =
-                    "UPDATE login " +
-                    "SET password = '" + newPassword + "' " +
-                    "WHERE username = '" + user + "' ";
-            try {
-                result = statement.executeUpdate(query2);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+	}
 
-            return result == 1;
-        } else {
-            return false;
-        }
-    }
+	public boolean authenticateStudent(String regNo, String password) {
+		String query = "SELECT * FROM students WHERE reg_no = ? AND password = ?";
+		return authenticateUser(regNo, password, query);
+	}
 
+	private boolean authenticateUser(String id, String password, String query) {
+		try (Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, id);
+			statement.setString(2, password);
+
+			ResultSet resultSet = statement.executeQuery();
+			return resultSet.next();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private Connection getConnection() {
+		Connection connection;
+		try {
+			Properties properties = getDatabaseProperties();
+
+			String database = properties.getProperty("db.name");
+			String url = "jdbc:mysql://localhost:3306/" + database + "?useSSL=false &serverTimezone=UTC";
+			String username = properties.getProperty("db.username");
+			String password = properties.getProperty("db.password");
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(url, username, password);
+		} catch (SQLException | ClassNotFoundException | IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		return connection;
+	}
+
+	private Properties getDatabaseProperties() throws IOException {
+		Properties properties = new Properties();
+		try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE)) {
+			properties.load(fileInputStream);
+		}
+		return properties;
+	}
+
+	public boolean authenticateLibrarian(String id, String password) {
+		String query = "SELECT * FROM librarians WHERE id = ? AND password = ?";
+		return authenticateUser(id, password, query);
+	}
+
+	public boolean authenticateAdmin(String username, String password) {
+		String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+		return authenticateUser(username, password, query);
+	}
 }
