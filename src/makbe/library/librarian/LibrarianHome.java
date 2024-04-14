@@ -3,49 +3,39 @@ package makbe.library.librarian;
 import javax.swing.*;
 import java.awt.*;
 
-public class LibrarianHome extends JFrame {
+import makbe.library.constants.WindowActions;
+import static makbe.library.constants.Fonts.*;
 
+public class LibrarianHome extends JFrame {
     Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screen.width - 100;
     int height = screen.height - 100;
 
-    JPanel topBar = new JPanel();
-    JLabel universityLabel = new JLabel("MAKBE UNIVERSITY");
-    JButton signOut = new JButton("Sign Out");
-
-    JPanel bottomBar = new JPanel();
-    JLabel developer = new JLabel(" Developed by Makechi™");
-    JLabel version = new JLabel("Library Management System | Version 1.0");
-    JRadioButton connected = new JRadioButton("Database Connected.");
-
-    UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
-
-    Color accent = Color.BLACK;
-    boolean connect = false;
-    String user;
-
-    public LibrarianHome(JDialog dialog, String user) {
+	public LibrarianHome(JDialog dialog, String user) {
         super("Librarian Panel");
         setSize(width, height);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        setFont(new Font("Iosevka Term", Font.PLAIN, 20));
+        setFont(displayFont);
 
-        topBar.setBackground(accent);
+		JPanel topBar = new JPanel();
+		Color accent = Color.BLACK;
+		topBar.setBackground(accent);
         topBar.setBounds(0, 0, width, 50);
         topBar.setLayout(null);
 
-        //universityLabel.setIcon(new ImageIcon("image1.jpg"));
-        universityLabel.setBounds(20, 0, 250, 50);
+		JLabel universityLabel = new JLabel("MAKBE UNIVERSITY");
+		universityLabel.setBounds(20, 0, 250, 50);
         universityLabel.setHorizontalAlignment(JLabel.CENTER);
-        universityLabel.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
+        universityLabel.setFont(displayFont);
         universityLabel.setForeground(Color.WHITE);
         topBar.add(universityLabel);
 
-        signOut.setBounds(1020, 10, 100, 30);
-        signOut.setFont(new Font("Iosevka Term", Font.PLAIN, 16));
+		JButton signOut = new JButton("Sign Out");
+		signOut.setBounds(1020, 10, 100, 30);
+        signOut.setFont(buttonFont);
         signOut.addActionListener(e -> {
             setVisible(false);
             dialog.setVisible(true);
@@ -56,7 +46,7 @@ public class LibrarianHome extends JFrame {
 
         JTabbedPane optionsPane = new JTabbedPane(JTabbedPane.LEFT);
         optionsPane.setBounds(10, 55, width - 40, 530);
-        optionsPane.setFont(new Font("Iosevka Term", Font.PLAIN, 20));
+        optionsPane.setFont(displayFont);
         optionsPane.add("Home", new LibrarianHomePanel());
         optionsPane.add("Manage Student", new ManageStudentPanel());
         optionsPane.add("Manage Book", new ManageBookPanel());
@@ -72,35 +62,34 @@ public class LibrarianHome extends JFrame {
         optionsPane.add("Change Password", new LibrarianPasswordPanel(user));
         add(optionsPane);
 
-        bottomBar.setBackground(accent);
+		JPanel bottomBar = new JPanel();
+		bottomBar.setBackground(accent);
         bottomBar.setBounds(0, 600, width, 40);
         bottomBar.setLayout(new GridLayout(1, 3));
 
-        developer.setForeground(Color.WHITE);
-        developer.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+		JLabel developer = new JLabel(" Developed by Makechi™");
+		developer.setForeground(Color.WHITE);
+        developer.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
         bottomBar.add(developer);
 
-        version.setForeground(Color.WHITE);
+		JLabel version = new JLabel("Library Management System | Version 1.0");
+		version.setForeground(Color.WHITE);
         version.setHorizontalAlignment(JLabel.CENTER);
-        version.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
+        version.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
         bottomBar.add(version);
 
-        connected.setBackground(accent);
+		JRadioButton connected = new JRadioButton("Database Connected.");
+		connected.setBackground(accent);
         connected.setForeground(Color.WHITE);
         connected.setHorizontalAlignment(JRadioButton.RIGHT);
-        connected.setFont(new Font("Iosevka Term", Font.PLAIN, 13));
-        connected.setSelected(connect);
+        connected.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
+		boolean connect = false;
+		connected.setSelected(connect);
         bottomBar.add(connected);
 
         add(bottomBar);
 
-        try {
-            UIManager.setLookAndFeel(looks[3].getClassName());
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
-        }
+        WindowActions.changeLookAndFeel(this);
 
         setVisible(true);
 

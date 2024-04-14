@@ -1,11 +1,12 @@
 package makbe.library.main;
 
+import makbe.library.constants.Fonts;
+import makbe.library.constants.WindowActions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import makbe.library.constants.Fonts;
 
 import static makbe.library.constants.Fonts.*;
 
@@ -17,7 +18,6 @@ public class Login extends JFrame implements ActionListener {
 	Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 	int width = screen.width / 2;
 	int height = screen.height / 2;
-	UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
 
 	Login() {
 		super("Library Management System");
@@ -66,18 +66,8 @@ public class Login extends JFrame implements ActionListener {
 
 		add(buttonsPanel);
 
-		changeLookAndFeel();
+		WindowActions.changeLookAndFeel(this);
 		setVisible(true);
-	}
-
-	private void changeLookAndFeel() {
-		try {
-			UIManager.setLookAndFeel(looks[3].getClassName());
-			SwingUtilities.updateComponentTreeUI(this);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-				 UnsupportedLookAndFeelException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	@Override
