@@ -1,7 +1,7 @@
 package makbe.library.main;
 
-import makbe.library.connections.Connections;
-import makbe.library.librarian.*;
+import makbe.library.librarian.LibrarianHome;
+import makbe.library.service.AuthService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,8 +75,8 @@ public class LibrarianLogin extends JDialog {
 			JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
-			Connections connections = Connections.getInstance();
-			return connections.authenticateLibrarian(id, password);
+			AuthService authService = new AuthService();
+			return authService.authenticateLibrarian(id, password);
 		}
 	}
 

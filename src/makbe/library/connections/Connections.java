@@ -1,5 +1,6 @@
 package makbe.library.connections;
 
+import makbe.library.model.Admin;
 import makbe.library.model.Librarian;
 
 import java.io.FileInputStream;
@@ -13,7 +14,6 @@ public class Connections {
 	private static Connections instance;
 
 	private Connections() {
-
 	}
 
 	public static synchronized Connections getInstance() {
@@ -25,7 +25,6 @@ public class Connections {
 	}
 
 	private Connection getConnection() {
-		Connection connection;
 		try {
 			Properties properties = getDatabaseProperties();
 
@@ -35,12 +34,10 @@ public class Connections {
 			String password = properties.getProperty("db.password");
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(url, username, password);
+			return DriverManager.getConnection(url, username, password);
 		} catch (SQLException | ClassNotFoundException | IOException e) {
 			throw new RuntimeException(e);
 		}
-
-		return connection;
 	}
 
 	private Properties getDatabaseProperties() throws IOException {
@@ -64,19 +61,46 @@ public class Connections {
 		}
 	}
 
-	public boolean authenticateStudent(String regNo, String password) {
-		String query = "SELECT * FROM students WHERE reg_no = ? AND password = ?";
-		return authenticateUser(regNo, password, query);
-	}
-
-	public boolean authenticateLibrarian(String id, String password) {
-		String query = "SELECT * FROM librarians WHERE id = ? AND password = ?";
-		return authenticateUser(id, password, query);
-	}
+	//	ADMIN
 
 	public boolean authenticateAdmin(String username, String password) {
 		String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
 		return authenticateUser(username, password, query);
+	}
+
+	public int saveAdmin(Admin admin) {
+		String query = "INSERT INTO admin (id, username, password) VALUES (?, ?, ?)";
+		try (Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, admin.id());
+			statement.setString(2, admin.username());
+			statement.setString(3, admin.password());
+
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int updateAdminPassword(String username, String newPassword) {
+		String query = "UPDATE admin SET password = ? WHERE username = ?";
+		try (Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, newPassword);
+			statement.setString(2, username);
+
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	//	LIBRARIAN
+
+	public boolean authenticateLibrarian(String id, String password) {
+		String query = "SELECT * FROM librarians WHERE id = ? AND password = ?";
+		return authenticateUser(id, password, query);
 	}
 
 	public int saveLibrarian(Librarian librarian) {
@@ -95,7 +119,7 @@ public class Connections {
 	}
 
 	public Librarian getLibrarianById(String id) {
-		Librarian librarian = new Librarian();
+		Librarian librarian = null;
 		String query = "SELECT * FROM librarians WHERE id = ?";
 		try (Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -103,11 +127,13 @@ public class Connections {
 
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				librarian.setId(resultSet.getString("id"));
-				librarian.setName(resultSet.getString("name"));
-				librarian.setEmail(resultSet.getString("email"));
-				librarian.setPassword(resultSet.getString("password"));
-				librarian.setAddedDate(resultSet.getDate("added_date"));
+				librarian = new Librarian(
+						resultSet.getString("id"),
+						resultSet.getString("name"),
+						resultSet.getString("email"),
+						resultSet.getString("password"),
+						resultSet.getDate("added_date")
+				);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -115,12 +141,32 @@ public class Connections {
 		return librarian;
 	}
 
-	public int updateAdminPassword(String username, String newPassword) {
-		String query = "UPDATE admin SET password = ? WHERE username = ?";
+	public int updateLibrarianPassword(String id, String newPassword) {
+		String query = "UPDATE librarians SET password = ? WHERE id = ?";
 		try (Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, newPassword);
-			statement.setString(2, username);
+			statement.setString(2, id);
+
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	//	STUDENT
+
+	public boolean authenticateStudent(String regNo, String password) {
+		String query = "SELECT * FROM students WHERE reg_no = ? AND password = ?";
+		return authenticateUser(regNo, password, query);
+	}
+
+	public int updateStudentPassword(String regNo, String newPassword) {
+		String query = "UPDATE students SET password = ? WHERE reg_no = ?";
+		try (Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, newPassword);
+			statement.setString(2, regNo);
 
 			return statement.executeUpdate();
 		} catch (SQLException e) {

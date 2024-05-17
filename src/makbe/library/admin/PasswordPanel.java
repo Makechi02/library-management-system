@@ -1,6 +1,6 @@
 package makbe.library.admin;
 
-import makbe.library.connections.Connections;
+import makbe.library.service.AuthService;
 
 import javax.swing.*;
 
@@ -49,7 +49,6 @@ public class PasswordPanel extends JPanel {
 		changeButton.setFont(displayFont);
 		changeButton.addActionListener(e -> handleUpdate());
 		add(changeButton);
-
 	}
 
 	private void handleUpdate() {
@@ -57,16 +56,20 @@ public class PasswordPanel extends JPanel {
 		String newPassword = String.valueOf(newPasswordField.getPassword());
 		String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
 
-		Connections connections = Connections.getInstance();
+		AuthService authService = new AuthService();
+
+		if (oldPassword.isBlank() || newPassword.isBlank() || confirmPassword.isBlank()) {
+			JOptionPane.showMessageDialog(this, "Password can't be blank", null, JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 
 		if (!newPassword.equals(confirmPassword)) {
 			JOptionPane.showMessageDialog(this, "Passwords don't match", null, JOptionPane.WARNING_MESSAGE);
 		} else {
-			if (!connections.authenticateAdmin(user, oldPassword)) {
+			if (!authService.authenticateAdmin(user, oldPassword)) {
 				JOptionPane.showMessageDialog(this, "Incorrect password", null, JOptionPane.WARNING_MESSAGE);
 			} else {
-				int result = connections.updateAdminPassword(user, newPassword);
-				if (result >= 1) {
+				if (authService.updateAdminPassword(user, newPassword)) {
 					JOptionPane.showMessageDialog(this, "Password Updated Successfully", null, JOptionPane.INFORMATION_MESSAGE);
 					erasePasswordFields();
 				} else {

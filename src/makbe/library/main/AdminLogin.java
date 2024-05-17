@@ -1,7 +1,7 @@
 package makbe.library.main;
 
-import makbe.library.admin.*;
-import makbe.library.connections.Connections;
+import makbe.library.admin.AdminHome;
+import makbe.library.service.AuthService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,8 +76,8 @@ public class AdminLogin extends JDialog {
 			JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
-			Connections connections = Connections.getInstance();
-			return connections.authenticateAdmin(username, password);
+			AuthService authService = new AuthService();
+			return authService.authenticateAdmin(username, password);
 		}
 	}
 

@@ -1,6 +1,6 @@
 package makbe.library.main;
 
-import makbe.library.connections.Connections;
+import makbe.library.service.AuthService;
 import makbe.library.student.StudentHome;
 
 import javax.swing.*;
@@ -75,8 +75,8 @@ public class StudentLogin extends JDialog {
 			JOptionPane.showMessageDialog(this, "Please Fill Out All Fields!", null, JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
-			Connections connections = Connections.getInstance();
-			return connections.authenticateStudent(regNo, password);
+			AuthService authService = new AuthService();
+			return authService.authenticateStudent(regNo, password);
 		}
 	}
 
