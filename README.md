@@ -14,6 +14,13 @@ This library management system provides a user-friendly interface for librarians
 - **Search Functionality**: Search for books and borrowers based on various criteria such as title, author, ISBN, borrower ID, etc.
 - **User-friendly Interface**: The system is designed with a simple and intuitive interface using Java Swing for ease of use.
 
+## Screenshots
+![Screenshot 1](./screenshots/Screenshot_2024-04-07_20-09-52.png)
+
+![Screenshot 2](./screenshots/Screenshot_2024-04-07_20-10-04.png)
+
+![Screenshot 3](./screenshots/Screenshot_2024-04-07_16-19-52.png)
+
 ## Requirements
 
 - Java Development Kit (JDK)
