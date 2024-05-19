@@ -3,6 +3,8 @@ package makbe.library.librarian;
 import javax.swing.*;
 import java.awt.*;
 
+import makbe.library.UI.HomePanel;
+import makbe.library.constants.UserType;
 import makbe.library.constants.WindowActions;
 import static makbe.library.constants.Fonts.*;
 
@@ -47,47 +49,24 @@ public class LibrarianHome extends JFrame {
         JTabbedPane optionsPane = new JTabbedPane(JTabbedPane.LEFT);
         optionsPane.setBounds(10, 55, width - 40, 530);
         optionsPane.setFont(displayFont);
-        optionsPane.add("Home", new LibrarianHomePanel());
-        optionsPane.add("Manage Student", new ManageStudentPanel());
-        optionsPane.add("Manage Book", new ManageBookPanel());
-        optionsPane.add("Search Book", new SearchBookPanel());
-        optionsPane.add("Manage Borrower", new ManageBorrowerPanel());
-        optionsPane.add("Book Request", new BookRequestPanel());
-        optionsPane.add("Report", new ReportPanel());
-        optionsPane.add("Soft Book", new SoftBookPanel());
-        optionsPane.add("Upload Book", new UploadBookPanel());
-        optionsPane.add("Messenger", new MessengerPanel());
-        optionsPane.add("Notice Board", new LibrarianNoticeBoardPanel());
-        optionsPane.add("Edit Profile", new ProfilePanel());
+        optionsPane.add("Home", new HomePanel(UserType.LIBRARIAN));
+//        optionsPane.add("Manage Student", new ManageStudentPanel());
+//        optionsPane.add("Manage Book", new ManageBookPanel());
+//        optionsPane.add("Search Book", new SearchBookPanel());
+//        optionsPane.add("Manage Borrower", new ManageBorrowerPanel());
+//        optionsPane.add("Book Request", new BookRequestPanel());
+//        optionsPane.add("Report", new ReportPanel());
+//        optionsPane.add("Soft Book", new SoftBookPanel());
+//        optionsPane.add("Upload Book", new UploadBookPanel());
+//        optionsPane.add("Messenger", new MessengerPanel());
+//        optionsPane.add("Notice Board", new LibrarianNoticeBoardPanel());
+//        optionsPane.add("Edit Profile", new ProfilePanel());
         optionsPane.add("Change Password", new LibrarianPasswordPanel(user));
         add(optionsPane);
 
-		JPanel bottomBar = new JPanel();
-		bottomBar.setBackground(accent);
-        bottomBar.setBounds(0, 600, width, 40);
-        bottomBar.setLayout(new GridLayout(1, 3));
+		JPanel bottomBar = getBottomBar(accent);
 
-		JLabel developer = new JLabel(" Developed by Makechi™");
-		developer.setForeground(Color.WHITE);
-        developer.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
-        bottomBar.add(developer);
-
-		JLabel version = new JLabel("Library Management System | Version 1.0");
-		version.setForeground(Color.WHITE);
-        version.setHorizontalAlignment(JLabel.CENTER);
-        version.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
-        bottomBar.add(version);
-
-		JRadioButton connected = new JRadioButton("Database Connected.");
-		connected.setBackground(accent);
-        connected.setForeground(Color.WHITE);
-        connected.setHorizontalAlignment(JRadioButton.RIGHT);
-        connected.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
-		boolean connect = false;
-		connected.setSelected(connect);
-        bottomBar.add(connected);
-
-        add(bottomBar);
+		add(bottomBar);
 
         WindowActions.changeLookAndFeel(this);
 
@@ -95,7 +74,35 @@ public class LibrarianHome extends JFrame {
 
     }
 
-    public static void main(String[] args) {
+	private JPanel getBottomBar(Color accent) {
+		JPanel bottomBar = new JPanel();
+		bottomBar.setBackground(accent);
+		bottomBar.setBounds(0, 600, width, 40);
+		bottomBar.setLayout(new GridLayout(1, 3));
+
+		JLabel developer = new JLabel(" Developed by Makechi™");
+		developer.setForeground(Color.WHITE);
+		developer.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
+		bottomBar.add(developer);
+
+		JLabel version = new JLabel("Library Management System | Version 1.0");
+		version.setForeground(Color.WHITE);
+		version.setHorizontalAlignment(JLabel.CENTER);
+		version.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
+		bottomBar.add(version);
+
+		JRadioButton connected = new JRadioButton("Database Connected.");
+		connected.setBackground(accent);
+		connected.setForeground(Color.WHITE);
+		connected.setHorizontalAlignment(JRadioButton.RIGHT);
+		connected.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 13));
+		boolean connect = false;
+		connected.setSelected(connect);
+		bottomBar.add(connected);
+		return bottomBar;
+	}
+
+	public static void main(String[] args) {
         new LibrarianHome(new JDialog(), "user");
     }
 

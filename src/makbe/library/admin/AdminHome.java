@@ -1,5 +1,7 @@
 package makbe.library.admin;
 
+import makbe.library.UI.HomePanel;
+import makbe.library.constants.UserType;
 import makbe.library.constants.WindowActions;
 
 import javax.swing.*;
@@ -49,7 +51,7 @@ public class AdminHome extends JFrame {
         JTabbedPane optionsPane = new JTabbedPane(JTabbedPane.LEFT);
         optionsPane.setBounds(10, 55, width - 40, 530);
         optionsPane.setFont(displayFont);
-        optionsPane.add("Home", new HomePanel());
+		optionsPane.add("Home", new HomePanel(UserType.ADMIN));
         optionsPane.add("Add Librarian", new AddLibrarianPanel());
         optionsPane.add("View Librarian", new ViewLibrarianPanel());
 //        optionsPane.add("Library Report", new LibraryReportPanel());
