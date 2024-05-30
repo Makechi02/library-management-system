@@ -1,6 +1,6 @@
 package makbe.library.admin;
 
-import makbe.library.connections.Connections;
+import makbe.library.constants.Gender;
 import makbe.library.model.Librarian;
 
 import javax.swing.*;
@@ -15,6 +15,7 @@ public class AddLibrarianPanel extends JPanel {
 	private final JTextField emailField = new JTextField();
 	private final JPasswordField passwordField = new JPasswordField();
 	private final JPasswordField confirmField = new JPasswordField();
+	private final JComboBox<Gender> genderBox = new JComboBox<>(Gender.values());
 	private final JTextArea detailsArea = new JTextArea("Details:");
 
 	AddLibrarianPanel() {
@@ -50,23 +51,33 @@ public class AddLibrarianPanel extends JPanel {
 		emailField.setFont(displayFont);
 		add(emailField);
 
-		label = new JLabel("PASSWORD:");
-		label.setBounds(50, 230, 150, 40);
-		label.setFont(displayFont);
-		label.setVerticalAlignment(JLabel.CENTER);
-		add(label);
-
-		passwordField.setBounds(260, 230, 300, 40);
-		passwordField.setFont(displayFont);
-		add(passwordField);
-
-		label = new JLabel("CONFIRM PASSWORD:");
-		label.setBounds(50, 290, 200, 40);
+		label = new JLabel("GENDER:");
+		label.setBounds(50, 230, 200, 40);
 		label.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 18));
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 
-		confirmField.setBounds(260, 290, 300, 40);
+		genderBox.setBounds(260, 230, 300, 40);
+		genderBox.setFont(displayFont);
+		add(genderBox);
+
+		label = new JLabel("PASSWORD:");
+		label.setBounds(50, 290, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
+
+		passwordField.setBounds(260, 290, 300, 40);
+		passwordField.setFont(displayFont);
+		add(passwordField);
+
+		label = new JLabel("CONFIRM PASSWORD:");
+		label.setBounds(50, 350, 200, 40);
+		label.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 18));
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
+
+		confirmField.setBounds(260, 350, 300, 40);
 		confirmField.setFont(displayFont);
 		add(confirmField);
 
@@ -78,13 +89,13 @@ public class AddLibrarianPanel extends JPanel {
 
 		JButton previewButton = new JButton("Preview");
 		previewButton.setBounds(690, 410, 100, 40);
-		previewButton.setFont(displayFont);
+		previewButton.setFont(buttonFont);
 		previewButton.addActionListener(e -> handlePreview());
 		add(previewButton);
 
 		JButton acceptButton = new JButton("Accept");
 		acceptButton.setBounds(800, 410, 100, 40);
-		acceptButton.setFont(displayFont);
+		acceptButton.setFont(buttonFont);
 		acceptButton.addActionListener(e -> handleSaveLibrarian());
 		add(acceptButton);
 
@@ -98,11 +109,14 @@ public class AddLibrarianPanel extends JPanel {
 		}
 
 		if (validatePassword()) {
+			String gender = Objects.requireNonNull(genderBox.getSelectedItem()).toString();
+
 			detailsArea.setText("");
 			detailsArea.setText(
 					"Details:" + "\n\nName: " + nameField.getText() +
 							"\nStaff ID: " + staffIdField.getText() +
-							"\nEmail: " + emailField.getText()
+							"\nEmail: " + emailField.getText() +
+							"\n Gender: " + gender.toLowerCase()
 			);
 		} else {
 			JOptionPane.showMessageDialog(this, "Passwords don't match!", null, JOptionPane.WARNING_MESSAGE);

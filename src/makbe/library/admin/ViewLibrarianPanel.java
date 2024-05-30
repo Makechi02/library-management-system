@@ -15,6 +15,7 @@ public class ViewLibrarianPanel extends JPanel {
 	private final JTextField staffIdField = new JTextField();
 	private final JTextField emailField = new JTextField();
 	private final JTextField dateField = new JTextField();
+	private final JTextField genderField = new JTextField();
 
 	ViewLibrarianPanel() {
 		setLayout(null);
@@ -67,13 +68,24 @@ public class ViewLibrarianPanel extends JPanel {
 		emailField.setEnabled(false);
 		add(emailField);
 
-		label = new JLabel("DATE ADDED:");
+		label = new JLabel("GENDER:");
 		label.setBounds(50, 280, 150, 40);
 		label.setFont(displayFont);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 
-		dateField.setBounds(230, 280, 300, 40);
+		genderField.setBounds(230, 280, 300, 40);
+		genderField.setFont(displayFont);
+		genderField.setEnabled(false);
+		add(genderField);
+
+		label = new JLabel("DATE ADDED:");
+		label.setBounds(50, 340, 150, 40);
+		label.setFont(displayFont);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
+
+		dateField.setBounds(230, 340, 300, 40);
 		dateField.setFont(displayFont);
 		dateField.setEnabled(false);
 		add(dateField);
@@ -91,13 +103,14 @@ public class ViewLibrarianPanel extends JPanel {
 		if (!id.isBlank()) {
 			Librarian librarian = connections.getLibrarianById(id);
 
-			if (librarian.getAddedDate() == null) {
+			if (librarian == null) {
 				JOptionPane.showMessageDialog(this, "No record found", null, JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				nameField.setText(librarian.getName());
 				staffIdField.setText(librarian.getId());
 				emailField.setText(librarian.getEmail());
 				dateField.setText(String.valueOf(librarian.getAddedDate()));
+				genderField.setText(librarian.getGender().name());
 
 				searchField.setText("");
 			}

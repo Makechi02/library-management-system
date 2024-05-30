@@ -1,29 +1,33 @@
 package makbe.library.model;
 
+import makbe.library.constants.Gender;
+
 import java.util.Date;
-import java.util.Objects;
 
 public class Librarian {
 	private String id;
 	private String name;
 	private String email;
+	private Gender gender;
 	private String password;
 	private Date addedDate;
 
 	public Librarian() {
 	}
 
-	public Librarian(String id, String name, String email, String password) {
-		this.id = id;
+	public Librarian(String id, String name, String email, Gender gender, String password) {
 		this.name = name;
+		this.id = id;
 		this.email = email;
+		this.gender = gender;
 		this.password = password;
 	}
 
-	public Librarian(String id, String name, String email, String password, Date addedDate) {
+	public Librarian(String id, String name, String email, Gender gender, String password, Date addedDate) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.gender = gender;
 		this.password = password;
 		this.addedDate = addedDate;
 	}
@@ -52,6 +56,14 @@ public class Librarian {
 		this.email = email;
 	}
 
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -66,29 +78,5 @@ public class Librarian {
 
 	public void setAddedDate(Date addedDate) {
 		this.addedDate = addedDate;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Librarian librarian = (Librarian) o;
-		return Objects.equals(id, librarian.id) && Objects.equals(name, librarian.name) && Objects.equals(email, librarian.email) && Objects.equals(password, librarian.password) && Objects.equals(addedDate, librarian.addedDate);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, email, password, addedDate);
-	}
-
-	@Override
-	public String toString() {
-		return "Librarian {" +
-				"id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", email='" + email + '\'' +
-				", password='" + password + '\'' +
-				", addedDate=" + addedDate +
-				'}';
 	}
 }

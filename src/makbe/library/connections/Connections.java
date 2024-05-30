@@ -1,5 +1,6 @@
 package makbe.library.connections;
 
+import makbe.library.constants.Gender;
 import makbe.library.model.Admin;
 import makbe.library.model.Librarian;
 
@@ -104,13 +105,14 @@ public class Connections {
 	}
 
 	public int saveLibrarian(Librarian librarian) {
-		String query = "INSERT INTO librarians (id, name, email, password) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO librarians (id, name, email, gender, password) VALUES (?, ?, ?, ?, ?)";
 		try (Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, librarian.getId());
 			statement.setString(2, librarian.getName());
 			statement.setString(3, librarian.getEmail());
-			statement.setString(4, librarian.getPassword());
+			statement.setString(4, librarian.getGender().name());
+			statement.setString(5, librarian.getPassword());
 
 			return statement.executeUpdate();
 		} catch (SQLException e) {
@@ -131,6 +133,7 @@ public class Connections {
 						resultSet.getString("id"),
 						resultSet.getString("name"),
 						resultSet.getString("email"),
+						Gender.valueOf(resultSet.getString("gender")),
 						resultSet.getString("password"),
 						resultSet.getDate("added_date")
 				);
